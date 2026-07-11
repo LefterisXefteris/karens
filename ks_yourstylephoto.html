@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KS Your Style Photo — Karen Savegnago</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --black:#070707;
+      --off-black:#0f0f0f;
+      --white:#f2ede8;
+      --grey:#888;
+      --grey-light:#bbb;
+      --accent:#b8a98a;
+      --display:'Playfair Display',serif;
+      --body:'DM Sans',sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:var(--body);font-weight:300;overflow-x:hidden;cursor:none;}
+
+    /* CURSOR */
+    .cur{width:8px;height:8px;background:var(--white);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+    .cur-r{width:32px;height:32px;border:1px solid rgba(242,237,232,0.3);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:28px 60px;}
+    nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,7,7,.92) 0%,transparent 100%);z-index:-1;pointer-events:none;}
+    .nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;}
+    .nav-links{display:flex;gap:40px;list-style:none;}
+    .nav-links a{font-size:11px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-light);text-decoration:none;transition:color .3s;position:relative;}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-links a:hover::after{transform:scaleX(1);}
+
+    /* HERO */
+    .hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,rgba(7,7,7,.04) 0%,rgba(7,7,7,.55) 50%,rgba(7,7,7,.97) 100%),url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1900&q=85') center/cover no-repeat;filter:grayscale(100%) contrast(1.12);animation:zoomIn 16s ease forwards;}
+    @keyframes zoomIn{from{transform:scale(1.09);}to{transform:scale(1.0);}}
+    .hero-inner{position:relative;padding:0 60px 90px;max-width:900px;animation:fadeUp 1.8s cubic-bezier(.22,1,.36,1) .3s both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(44px);}to{opacity:1;transform:translateY(0);}}
+    .hero-tag{font-size:11px;font-weight:300;letter-spacing:.38em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;}
+    .hero-title{font-family:var(--display);font-size:clamp(3.4rem,7.5vw,7rem);font-weight:400;line-height:1.04;color:var(--white);margin-bottom:32px;}
+    .hero-title em{font-style:italic;color:var(--accent);}
+    .hero-desc{font-size:14px;font-weight:300;letter-spacing:.1em;line-height:2;color:var(--grey-light);max-width:500px;margin-bottom:48px;}
+    .hero-btn{display:inline-flex;align-items:center;gap:14px;font-size:11px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--white);text-decoration:none;border:1px solid rgba(242,237,232,.28);padding:18px 36px;transition:background .4s,color .4s,border-color .4s;}
+    .hero-btn:hover{background:var(--white);color:var(--black);border-color:var(--white);}
+    .scroll-hint{position:absolute;right:60px;bottom:64px;writing-mode:vertical-rl;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);display:flex;flex-direction:column;align-items:center;gap:14px;}
+    .scroll-hint::after{content:'';width:1px;height:64px;background:linear-gradient(to bottom,var(--grey),transparent);animation:pulse 2.4s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{opacity:.25;}50%{opacity:1;}}
+
+    /* SECTION SHARED */
+    .s-label{font-size:10px;font-weight:300;letter-spacing:.38em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;}
+
+    /* ABOUT */
+    .about{padding:150px 60px;display:grid;grid-template-columns:1fr 1fr;gap:110px;align-items:center;max-width:1440px;margin:0 auto;}
+    .about-text h2{font-family:var(--display);font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:400;line-height:1.16;margin-bottom:38px;}
+    .about-text h2 em{font-style:italic;color:var(--accent);}
+    .about-text p{font-size:14px;font-weight:300;line-height:2.2;letter-spacing:.05em;color:var(--grey-light);margin-bottom:24px;}
+    .about-img{position:relative;aspect-ratio:3/4;overflow:hidden;}
+    .about-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.1);transition:transform .9s ease;display:block;}
+    .about-img:hover img{transform:scale(1.04);}
+    .about-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,7,7,.55) 100%);}
+
+    /* PILLARS */
+    .pillars{background:var(--off-black);padding:110px 60px;}
+    .pillars-wrap{max-width:1440px;margin:0 auto;}
+    .pillars-head{text-align:center;margin-bottom:80px;}
+    .pillars-head h2{font-family:var(--display);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:400;}
+    .pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+    .pillar{padding:56px 48px;background:rgba(255,255,255,.018);border-top:1px solid rgba(255,255,255,.06);transition:background .4s;}
+    .pillar:hover{background:rgba(255,255,255,.042);}
+    .p-num{font-family:var(--display);font-size:4rem;font-weight:400;color:rgba(184,169,138,.16);line-height:1;margin-bottom:28px;}
+    .pillar h3{font-family:var(--display);font-size:1.6rem;font-weight:400;margin-bottom:18px;}
+    .pillar p{font-size:13px;font-weight:300;line-height:2.2;letter-spacing:.05em;color:var(--grey-light);}
+
+    /* GALLERY */
+    .gallery{padding:130px 60px;max-width:1440px;margin:0 auto;}
+    .gallery-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px;}
+    .gallery-top h2{font-family:var(--display);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:400;}
+    .gallery-top a{font-size:11px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap .3s;}
+    .gallery-top a:hover{gap:16px;}
+    .gallery-top a::after{content:'→';}
+    .g-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;}
+    .g-item{overflow:hidden;background:var(--off-black);}
+    .g-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.12);display:block;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .5s;}
+    .g-item:hover img{transform:scale(1.06);filter:grayscale(75%) contrast(1.18);}
+    .g-item:nth-child(1){grid-column:span 7;aspect-ratio:16/10;}
+    .g-item:nth-child(2){grid-column:span 5;aspect-ratio:4/3;}
+    .g-item:nth-child(3){grid-column:span 4;aspect-ratio:4/3;}
+    .g-item:nth-child(4){grid-column:span 4;aspect-ratio:4/3;}
+    .g-item:nth-child(5){grid-column:span 4;aspect-ratio:4/3;}
+    .g-item:nth-child(6){grid-column:span 5;aspect-ratio:3/4;}
+    .g-item:nth-child(7){grid-column:span 7;aspect-ratio:16/10;}
+    .ig-note{text-align:center;margin-top:44px;}
+    .ig-note p{font-size:12px;font-weight:300;letter-spacing:.14em;color:var(--grey);margin-bottom:14px;}
+    .ig-link{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(184,169,138,.38);padding-bottom:5px;transition:color .3s,border-color .3s;}
+    .ig-link:hover{color:var(--accent);border-color:var(--accent);}
+    .ig-link svg{width:15px;height:15px;fill:currentColor;}
+
+    /* QUOTE */
+    .quote{border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:110px 60px;text-align:center;}
+    .quote blockquote{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.8rem);font-weight:400;font-style:italic;line-height:1.55;color:var(--white);max-width:900px;margin:0 auto;}
+    .quote cite{display:block;font-family:var(--body);font-size:11px;font-style:normal;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-top:30px;}
+
+    /* SERVICES */
+    .services{padding:130px 60px;background:var(--off-black);}
+    .services-wrap{max-width:1440px;margin:0 auto;}
+    .services-top{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-bottom:72px;}
+    .services-top h2{font-family:var(--display);font-size:clamp(2.2rem,4.2vw,3.6rem);font-weight:400;line-height:1.18;}
+    .services-top p{font-size:14px;font-weight:300;line-height:2.2;letter-spacing:.05em;color:var(--grey-light);align-self:center;}
+    .s-list{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.07);}
+    .s-item{padding:48px 0;border-bottom:1px solid rgba(255,255,255,.07);display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:start;}
+    .s-item:nth-child(odd){padding-right:60px;border-right:1px solid rgba(255,255,255,.07);}
+    .s-item:nth-child(even){padding-left:60px;}
+    .s-n{font-family:var(--display);font-size:1rem;color:var(--accent);font-weight:400;padding-top:3px;}
+    .s-item h3{font-family:var(--display);font-size:1.5rem;font-weight:400;margin-bottom:14px;}
+    .s-item p{font-size:13px;font-weight:300;line-height:2.1;letter-spacing:.05em;color:var(--grey-light);}
+
+    /* CONTACT */
+    .contact{padding:140px 60px;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:110px;align-items:start;}
+    .c-info h2{font-family:var(--display);font-size:clamp(2.2rem,4vw,3.4rem);font-weight:400;line-height:1.18;margin-bottom:32px;}
+    .c-info>p{font-size:14px;font-weight:300;line-height:2.2;letter-spacing:.05em;color:var(--grey-light);margin-bottom:48px;}
+    .c-details{display:flex;flex-direction:column;gap:20px;}
+    .c-row{display:flex;align-items:flex-start;gap:22px;}
+    .c-lbl{font-size:10px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);min-width:64px;padding-top:2px;}
+    .c-val{font-size:13px;font-weight:300;letter-spacing:.06em;color:var(--grey-light);}
+    .c-val a{color:var(--grey-light);text-decoration:none;transition:color .3s;}
+    .c-val a:hover{color:var(--white);}
+
+    /* FORM */
+    .c-form{display:flex;flex-direction:column;}
+    .f-row{display:grid;grid-template-columns:1fr 1fr;}
+    .f-field{position:relative;border-bottom:1px solid rgba(255,255,255,.1);padding:26px 0 12px;}
+    .f-field:nth-child(odd){border-right:1px solid rgba(255,255,255,.05);padding-right:30px;}
+    .f-field:nth-child(even){padding-left:30px;}
+    .f-field.full{grid-column:span 2;padding-right:0!important;padding-left:0!important;border-right:none!important;}
+    .f-field label{position:absolute;top:8px;font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);pointer-events:none;}
+    .f-field input,.f-field textarea,.f-field select{background:transparent;border:none;outline:none;color:var(--white);font-family:var(--body);font-size:14px;font-weight:300;letter-spacing:.05em;width:100%;padding-top:16px;resize:none;-webkit-appearance:none;appearance:none;}
+    .f-field select option{background:#111;color:var(--white);}
+    .f-field input::placeholder,.f-field textarea::placeholder{color:#3a3a3a;}
+    .f-field textarea{min-height:100px;}
+    .f-submit{margin-top:48px;display:flex;justify-content:flex-end;}
+    .btn-send{background:transparent;border:1px solid rgba(242,237,232,.28);color:var(--white);font-family:var(--body);font-size:11px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;padding:20px 48px;cursor:none;transition:background .4s,color .4s,border-color .4s;}
+    .btn-send:hover:not(:disabled){background:var(--white);color:var(--black);border-color:var(--white);}
+    .btn-send:disabled{opacity:.45;}
+    .f-err{display:none;font-size:12px;color:#c05060;letter-spacing:.08em;margin-top:14px;text-align:right;}
+    .f-ok{display:none;text-align:center;padding:80px 40px;border:1px solid rgba(184,169,138,.2);}
+    .f-ok h3{font-family:var(--display);font-size:2.6rem;font-weight:400;color:var(--accent);margin-bottom:16px;}
+    .f-ok p{font-size:13px;font-weight:300;letter-spacing:.1em;color:var(--grey-light);line-height:2;}
+
+    /* FOOTER */
+    footer{border-top:1px solid rgba(255,255,255,.06);padding:60px;display:flex;align-items:center;justify-content:space-between;}
+    .f-logo{font-family:var(--display);font-size:1.1rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--white);}
+    .f-links{display:flex;gap:36px;list-style:none;}
+    .f-links a{font-size:11px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;}
+    .f-links a:hover{color:var(--white);}
+    .f-copy{font-size:11px;font-weight:300;letter-spacing:.12em;color:var(--grey);}
+
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+    .rv.on{opacity:1;transform:none;}
+    .d1{transition-delay:.13s;} .d2{transition-delay:.26s;}
+
+    /* RESPONSIVE */
+    @media(max-width:980px){
+      nav{padding:22px 28px;} .nav-links{gap:20px;}
+      .hero-inner{padding:0 28px 72px;} .scroll-hint{right:28px;}
+      .about{grid-template-columns:1fr;gap:52px;padding:90px 28px;}
+      .about-img{aspect-ratio:16/9;}
+      .pillars{padding:90px 28px;} .pillars-grid{grid-template-columns:1fr;}
+      .gallery{padding:90px 28px;}
+      .g-item:nth-child(1),.g-item:nth-child(2),.g-item:nth-child(3),.g-item:nth-child(6),.g-item:nth-child(7){grid-column:span 12;}
+      .g-item:nth-child(4),.g-item:nth-child(5){grid-column:span 6;}
+      .g-item:nth-child(6){aspect-ratio:16/10;}
+      .quote{padding:80px 28px;}
+      .services{padding:90px 28px;} .services-top{grid-template-columns:1fr;gap:30px;}
+      .s-list{grid-template-columns:1fr;}
+      .s-item:nth-child(odd){padding-right:0;border-right:none;}
+      .s-item:nth-child(even){padding-left:0;}
+      .contact{grid-template-columns:1fr;gap:64px;padding:90px 28px;}
+      .f-row{grid-template-columns:1fr;}
+      .f-field:nth-child(odd){border-right:none;padding-right:0;}
+      .f-field:nth-child(even){padding-left:0;}
+      footer{flex-direction:column;gap:28px;text-align:center;padding:44px 28px;}
+      .f-links{flex-wrap:wrap;justify-content:center;}
+      body{cursor:auto;} .cur,.cur-r{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">KS Your Style Photo</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/ks.yourstylephoto" target="_blank" rel="noopener">Instagram</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <p class="hero-tag">Corporate &amp; Brand Photography — London</p>
+    <h1 class="hero-title">Truth lives<br>in <em>unscripted<br>moments.</em></h1>
+    <p class="hero-desc">Candid. Natural. Behind the scenes. Karen Savegnago captures the real atmosphere of your brand — no posing, no staging, no pretence.</p>
+    <a href="#contact" class="hero-btn">Request an Enquiry</a>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div class="about-text rv">
+      <p class="s-label">The philosophy</p>
+      <h2>Authentic stories.<br><em>Never posed.</em><br>Always felt.</h2>
+      <p>KS Your Style Photo is Karen Savegnago's documentary approach to corporate and brand photography. Working invisibly through your event, Karen captures the unguarded instants — the energy, the connection, the atmosphere — that define who your organisation truly is.</p>
+      <p>From conference floors to product launches, brand activations to executive summits, Karen's lens reveals not just what happened, but how it <em>felt.</em> The result is imagery that speaks directly to your audience, because it is completely, unapologetically real.</p>
+    </div>
+    <div class="about-img rv d2">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Corporate event candid photography" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="pillars-wrap">
+    <div class="pillars-head rv">
+      <p class="s-label">The approach</p>
+      <h2>How Karen works</h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar rv">
+        <div class="p-num">01</div>
+        <h3>Purely Candid</h3>
+        <p>No posing. No direction. No forced smiles. Karen moves through your event unseen, capturing moments that feel authentic because they are — raw, human, and entirely real.</p>
+      </div>
+      <div class="pillar rv d1">
+        <div class="p-num">02</div>
+        <h3>Behind the Scenes</h3>
+        <p>The preparation backstage. The spontaneous laughter. The focused quiet before a keynote. BTS storytelling reveals the depth behind your brand and builds genuine audience trust.</p>
+      </div>
+      <div class="pillar rv d2">
+        <div class="p-num">03</div>
+        <h3>Atmospheric Identity</h3>
+        <p>Every brand has an energy. Karen translates that intangible feeling — the buzz, the warmth, the intensity — into powerful imagery that captures the soul of your organisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="work" class="gallery">
+  <div class="gallery-top rv">
+    <div>
+      <p class="s-label">Selected work</p>
+      <h2>The portfolio</h2>
+    </div>
+    <a href="https://www.instagram.com/ks.yourstylephoto" target="_blank" rel="noopener">View on Instagram</a>
+  </div>
+  <div class="g-grid">
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80" alt="Corporate event" loading="lazy"/></div>
+    <div class="g-item rv d1"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&q=80" alt="Brand atmosphere" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=900&q=80" alt="Behind the scenes" loading="lazy"/></div>
+    <div class="g-item rv d1"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&q=80" alt="Conference" loading="lazy"/></div>
+    <div class="g-item rv d2"><img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Corporate candid" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&q=80" alt="Brand photography" loading="lazy"/></div>
+    <div class="g-item rv d1"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80" alt="Event BTS" loading="lazy"/></div>
+  </div>
+  <div class="ig-note rv">
+    <p>All images © Karen Savegnago — follow the work as it happens.</p>
+    <a href="https://www.instagram.com/ks.yourstylephoto" target="_blank" rel="noopener" class="ig-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @ks.yourstylephoto
+    </a>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote">
+  <blockquote class="rv">
+    "A brand's true character lives not in its polished campaigns — but in the unguarded moments between them."
+    <cite>— Karen Savegnago, KS Your Style Photo</cite>
+  </blockquote>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="services-wrap">
+    <div class="services-top rv">
+      <h2>Corporate &amp; Brand<br>Photography Services</h2>
+      <p>Every commission is bespoke. Whether a single event or an ongoing brand partnership, Karen delivers authentic visual storytelling tailored precisely to your organisation and its audience.</p>
+    </div>
+    <div class="s-list">
+      <div class="s-item rv">
+        <span class="s-n">01</span>
+        <div><h3>Corporate Events</h3><p>Conferences, summits, award ceremonies, product launches and AGMs. Full candid coverage of every key moment — and the atmosphere that connects them all.</p></div>
+      </div>
+      <div class="s-item rv d1">
+        <span class="s-n">02</span>
+        <div><h3>Brand &amp; Campaign</h3><p>Retainer and campaign shoots for digital, print and social. Authentic imagery that communicates culture, values and atmosphere — not just your product.</p></div>
+      </div>
+      <div class="s-item rv">
+        <span class="s-n">03</span>
+        <div><h3>Behind the Scenes</h3><p>Documentary BTS for productions, activations and internal storytelling. The unscripted reality behind your brand — captured with artistry and discretion.</p></div>
+      </div>
+      <div class="s-item rv d1">
+        <span class="s-n">04</span>
+        <div><h3>Executive &amp; Team</h3><p>Candid portraits of leadership and teams in their natural professional environment. Unposed, authentic, and genuinely reflective of your people and culture.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact">
+    <div class="c-info rv">
+      <p class="s-label">Get in touch</p>
+      <h2>Begin your<br>enquiry.</h2>
+      <p>Every project starts with a conversation. Share your details and Karen will respond personally within 48 hours with availability and a tailored proposal.</p>
+      <div class="c-details">
+        <div class="c-row">
+          <span class="c-lbl">Email</span>
+          <span class="c-val"><a href="mailto:contact@ksyourstyle.com">contact@ksyourstyle.com</a></span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">Phone</span>
+          <span class="c-val"><a href="tel:+447553205132">+44 755 32 051 32</a></span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">Instagram</span>
+          <span class="c-val"><a href="https://www.instagram.com/ks.yourstylephoto" target="_blank" rel="noopener">@ks.yourstylephoto</a></span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">Based</span>
+          <span class="c-val">London, UK — Available worldwide</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv d1">
+      <form class="c-form" id="enquiryForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_replyto" value="contact@ksyourstyle.com">
+        <input type="hidden" name="_subject" value="New Enquiry — KS Your Style Photo">
+        <div class="f-row">
+          <div class="f-field">
+            <label>Full Name *</label>
+            <input type="text" name="name" placeholder="Your full name" required/>
+          </div>
+          <div class="f-field">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" placeholder="+44 000 000 0000" required/>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-field">
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="your@email.com" required/>
+          </div>
+          <div class="f-field">
+            <label>Website / Company</label>
+            <input type="text" name="website" placeholder="www.yourcompany.com"/>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-field">
+            <label>Ideal Budget Range *</label>
+            <select name="budget" required>
+              <option value="">Select a range</option>
+              <option>£500 – £1,000</option>
+              <option>£1,000 – £2,500</option>
+              <option>£2,500 – £5,000</option>
+              <option>£5,000 – £10,000</option>
+              <option>£10,000+</option>
+              <option>Prefer to discuss</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label>Preferred Date *</label>
+            <input type="date" name="date" required/>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-field full">
+            <label>Shoot Location / Venue *</label>
+            <input type="text" name="location" placeholder="City, venue name or address" required/>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-field full">
+            <label>Tell me about your project</label>
+            <textarea name="message" placeholder="Describe your event, brand or campaign — the more detail the better." rows="4"></textarea>
+          </div>
+        </div>
+        <div class="f-submit">
+          <button type="submit" class="btn-send" id="sendBtn">Send Enquiry →</button>
+        </div>
+        <p class="f-err" id="fErr">Please complete all required fields before submitting.</p>
+      </form>
+      <div class="f-ok" id="fOk">
+        <h3>Thank you.</h3>
+        <p>Your enquiry has been received.<br>Karen will be in touch within 48 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">KS Your Style Photo</span>
+  <ul class="f-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="https://www.instagram.com/ks.yourstylephoto" target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="f-copy">© 2025 Karen Savegnago. All rights reserved.</span>
+</footer>
+
+<script>
+  // Cursor
+  const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{curR.style.width='54px';curR.style.height='54px';curR.style.borderColor='rgba(184,169,138,.55)';});
+    el.addEventListener('mouseleave',()=>{curR.style.width='32px';curR.style.height='32px';curR.style.borderColor='rgba(242,237,232,.3)';});
+  });
+
+  // Scroll reveal
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -44px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  // Form
+  const form=document.getElementById('enquiryForm');
+  const fOk=document.getElementById('fOk');
+  const fErr=document.getElementById('fErr');
+  const btn=document.getElementById('sendBtn');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    fErr.style.display='none';
+    let ok=true;
+    form.querySelectorAll('[required]').forEach(f=>{
+      if(!f.value.trim()){ok=false;f.parentElement.style.borderBottomColor='rgba(192,80,96,.5)';}
+      else{f.parentElement.style.borderBottomColor='';}
+    });
+    if(!ok){fErr.style.display='block';return;}
+    btn.textContent='Sending…';btn.disabled=true;
+    try{
+      const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      if(r.ok){form.style.display='none';fOk.style.display='block';}
+      else{btn.textContent='Something went wrong — please try again';btn.disabled=false;}
+    }catch{btn.textContent='Network error — please try again';btn.disabled=false;}
+  });
+</script>
+</body>
+</html>
