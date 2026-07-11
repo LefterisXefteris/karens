@@ -391,8 +391,8 @@
             </select>
           </div>
           <div class="f-field">
-            <label>Preferred Date *</label>
-            <input type="date" name="date" required/>
+            <label>Preferred Date * (day / month / year)</label>
+            <input type="date" name="preferred_date" id="preferredDate" required/>
           </div>
         </div>
         <div class="f-row">
@@ -465,6 +465,12 @@
     btn.textContent='Sending…';btn.disabled=true;
     try{
       const data=Object.fromEntries(new FormData(form).entries());
+      // Send date as clear UK text so FormSubmit emails aren't ambiguous (e.g. 01/08 = 1 August)
+      if(data.preferred_date){
+        const [y,m,d]=data.preferred_date.split('-').map(Number);
+        const dt=new Date(y,m-1,d);
+        data.preferred_date=dt.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',weekday:'long'});
+      }
       const r=await fetch(form.action,{
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
