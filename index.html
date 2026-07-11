@@ -90,12 +90,18 @@
     .g-item:hover img{transform:scale(1.035);filter:grayscale(55%) contrast(1.1);}
     .g-item.natural img{filter:contrast(1.03) brightness(1.02);}
     .g-item.natural:hover img{filter:contrast(1.06) brightness(1.03);}
+    /* Keep full colour — intentional vibe break */
+    .g-item.color img{filter:none;}
+    .g-item.color:hover img{filter:brightness(1.04) saturate(1.05);transform:scale(1.035);}
     /* Featured pair */
     .g-item:nth-child(1),.g-item:nth-child(2){grid-column:span 6;aspect-ratio:1/1;max-height:380px;}
     /* Mid band */
     .g-item:nth-child(3),.g-item:nth-child(4),.g-item:nth-child(5),.g-item:nth-child(6){grid-column:span 3;aspect-ratio:4/5;}
-    /* Closing pair */
-    .g-item:nth-child(7),.g-item:nth-child(8){grid-column:span 6;aspect-ratio:16/11;}
+    /* Colour break */
+    .g-item:nth-child(7){grid-column:span 7;aspect-ratio:16/10;}
+    .g-item:nth-child(8){grid-column:span 5;aspect-ratio:4/5;}
+    /* Closing band */
+    .g-item:nth-child(9),.g-item:nth-child(10),.g-item:nth-child(11),.g-item:nth-child(12){grid-column:span 3;aspect-ratio:4/5;}
     .ig-note{text-align:center;margin-top:48px;}
     .ig-note p{font-size:12px;font-weight:300;letter-spacing:.14em;color:var(--grey);margin-bottom:14px;}
     .ig-link{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(184,169,138,.38);padding-bottom:5px;transition:color .3s,border-color .3s;}
@@ -176,7 +182,7 @@
       .gallery{padding:90px 28px;}
       .g-grid{gap:8px;}
       .g-item:nth-child(n){grid-column:span 6;aspect-ratio:4/5;max-height:280px;}
-      .g-item:nth-child(7),.g-item:nth-child(8){aspect-ratio:5/4;max-height:240px;}
+      .g-item:nth-child(7){aspect-ratio:5/4;max-height:240px;}
       .quote{padding:80px 28px;}
       .services{padding:90px 28px;} .services-top{grid-template-columns:1fr;gap:30px;}
       .s-list{grid-template-columns:1fr;}
@@ -275,8 +281,12 @@
   <div class="g-grid">
     <div class="g-item natural rv"><img src="images/portfolio-bts-camera.jpg" alt="Behind the scenes with camera" loading="lazy"/></div>
     <div class="g-item natural rv d1"><img src="images/portfolio-baker.jpg" alt="Baker dusting pastries" loading="lazy"/></div>
-    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80" alt="Corporate event" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-dining.jpg" alt="Warm dining and wine evening" loading="lazy"/></div>
+    <div class="g-item rv d1"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80" alt="Corporate event" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-wine.jpg" alt="Hand holding red wine glass" loading="lazy"/></div>
     <div class="g-item natural rv d1"><img src="images/portfolio-dog.jpg" alt="Dog peeking from blanket" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-window.jpg" alt="Deli wine bar window" loading="lazy"/></div>
+    <div class="g-item color rv d1"><img src="images/portfolio-color-cantina.jpg" alt="Cantina Boccone storefront" loading="lazy"/></div>
     <div class="g-item natural rv"><img src="images/portfolio-bar.jpg" alt="Bar glass collection area" loading="lazy"/></div>
     <div class="g-item rv d1"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=900&q=80" alt="Behind the scenes" loading="lazy"/></div>
     <div class="g-item rv"><img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Corporate candid" loading="lazy"/></div>
