@@ -84,20 +84,15 @@
     .gallery-top a{font-size:11px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap .3s;}
     .gallery-top a:hover{gap:16px;}
     .gallery-top a::after{content:'→';}
-    .g-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;align-items:start;}
-    .g-item{background:var(--black);position:relative;width:100%;min-width:0;overflow:hidden;}
-    .g-item img{width:100%;height:auto;display:block;object-fit:contain;filter:grayscale(100%) contrast(1.06);transition:transform .9s cubic-bezier(.22,1,.36,1),filter .5s;}
+    .g-grid{column-count:3;column-gap:4px;}
+    .g-item{background:var(--black);position:relative;width:100%;margin:0 0 4px;break-inside:avoid;page-break-inside:avoid;-webkit-column-break-inside:avoid;overflow:hidden;display:block;}
+    .g-item img{width:100%;height:auto;display:block;vertical-align:top;filter:grayscale(100%) contrast(1.06);transition:transform .9s cubic-bezier(.22,1,.36,1),filter .5s;}
     .g-item:hover img{transform:scale(1.015);filter:grayscale(55%) contrast(1.1);}
     .g-item.natural img{filter:contrast(1.03) brightness(1.02);}
     .g-item.natural:hover img{filter:contrast(1.06) brightness(1.03);}
     .g-item.color img{filter:none;}
     .g-item.color:hover img{filter:brightness(1.04) saturate(1.06);transform:scale(1.015);}
-    .g-w3{grid-column:span 3;}
-    .g-w4{grid-column:span 4;}
-    .g-w5{grid-column:span 5;}
-    .g-w6{grid-column:span 6;}
-    .g-w7{grid-column:span 7;}
-    .g-w8{grid-column:span 8;}
+    .g-w3,.g-w4,.g-w5,.g-w6,.g-w7,.g-w8{grid-column:auto;}
     .g-item.feat img{max-height:none;}
     .ig-note{text-align:center;margin-top:48px;}
     .ig-note p{font-size:12px;font-weight:300;letter-spacing:.14em;color:var(--grey);margin-bottom:14px;}
@@ -177,8 +172,8 @@
       .about-img{aspect-ratio:16/9;}
       .pillars{padding:90px 28px;} .pillars-grid{grid-template-columns:1fr;}
       .gallery{padding:90px 28px;}
-      .g-grid{gap:6px;}
-      .g-item.g-w3,.g-item.g-w4,.g-item.g-w5,.g-item.g-w6,.g-item.g-w7,.g-item.g-w8{grid-column:span 6;}
+      .g-grid{column-count:2;column-gap:4px;}
+      .g-item{margin-bottom:4px;}
       .quote{padding:80px 28px;}
       .services{padding:90px 28px;} .services-top{grid-template-columns:1fr;gap:30px;}
       .s-list{grid-template-columns:1fr;}
@@ -275,28 +270,22 @@
     <a href="https://www.instagram.com/ksyourstylephoto" target="_blank" rel="noopener">View on Instagram</a>
   </div>
   <div class="g-grid">
-    <div class="g-item natural feat g-w6 rv"><img src="images/portfolio-bts-camera.jpg" alt="Behind the scenes with camera" loading="lazy"/></div>
-    <div class="g-item color g-w6 rv d1"><img src="images/portfolio-color-dining.jpg" alt="Warm dining and wine evening" loading="lazy"/></div>
-
-    <div class="g-item color g-w4 rv"><img src="images/portfolio-color-wine.jpg" alt="Hand holding red wine glass" loading="lazy"/></div>
-    <div class="g-item natural g-w4 rv d1"><img src="images/portfolio-baker.jpg" alt="Baker dusting pastries" loading="lazy"/></div>
-    <div class="g-item color g-w4 rv"><img src="images/portfolio-color-pour.jpg" alt="Pouring at a candlelit dinner" loading="lazy"/></div>
-
-    <div class="g-item g-w6 rv"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80" alt="Corporate event" loading="lazy"/></div>
-    <div class="g-item natural g-w6 rv d1"><img src="images/portfolio-dog.jpg" alt="Dog peeking from blanket" loading="lazy"/></div>
-
-    <div class="g-item color g-w4 rv"><img src="images/portfolio-color-ravioli.jpg" alt="Plating ravioli in the kitchen" loading="lazy"/></div>
-    <div class="g-item color g-w8 rv d1"><img src="images/portfolio-color-window.jpg" alt="Deli wine bar window" loading="lazy"/></div>
-
-    <div class="g-item color g-w5 rv"><img src="images/portfolio-color-cantina.jpg" alt="Cantina Boccone storefront" loading="lazy"/></div>
-    <div class="g-item natural g-w7 rv d1"><img src="images/portfolio-bar.jpg" alt="Bar glass collection area" loading="lazy"/></div>
-
-    <div class="g-item color g-w5 rv"><img src="images/portfolio-color-dessert.jpg" alt="Wine and dessert in warm light" loading="lazy"/></div>
-    <div class="g-item color g-w7 rv d1"><img src="images/portfolio-color-table.jpg" alt="Red-lit dinner table gathering" loading="lazy"/></div>
-
-    <div class="g-item g-w4 rv"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=900&q=80" alt="Behind the scenes" loading="lazy"/></div>
-    <div class="g-item g-w4 rv d1"><img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Corporate candid" loading="lazy"/></div>
-    <div class="g-item g-w4 rv"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80" alt="Event BTS" loading="lazy"/></div>
+    <div class="g-item natural rv"><img src="images/portfolio-bts-camera.jpg" alt="Behind the scenes with camera" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-dining.jpg" alt="Warm dining and wine evening" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-wine.jpg" alt="Hand holding red wine glass" loading="lazy"/></div>
+    <div class="g-item natural rv"><img src="images/portfolio-baker.jpg" alt="Baker dusting pastries" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-pour.jpg" alt="Pouring at a candlelit dinner" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80" alt="Corporate event" loading="lazy"/></div>
+    <div class="g-item natural rv"><img src="images/portfolio-dog.jpg" alt="Dog peeking from blanket" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-ravioli.jpg" alt="Plating ravioli in the kitchen" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-window.jpg" alt="Deli wine bar window" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-cantina.jpg" alt="Cantina Boccone storefront" loading="lazy"/></div>
+    <div class="g-item natural rv"><img src="images/portfolio-bar.jpg" alt="Bar glass collection area" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-dessert.jpg" alt="Wine and dessert in warm light" loading="lazy"/></div>
+    <div class="g-item color rv"><img src="images/portfolio-color-table.jpg" alt="Red-lit dinner table gathering" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=900&q=80" alt="Behind the scenes" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=80" alt="Corporate candid" loading="lazy"/></div>
+    <div class="g-item rv"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80" alt="Event BTS" loading="lazy"/></div>
   </div>
   <div class="ig-note rv">
     <p>All images © Karen Savegnago — follow the work as it happens.</p>
