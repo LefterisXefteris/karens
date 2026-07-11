@@ -464,9 +464,26 @@
     if(!ok){fErr.style.display='block';return;}
     btn.textContent='Sending…';btn.disabled=true;
     try{
-      const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-      if(r.ok){form.style.display='none';fOk.style.display='block';}
-      else{btn.textContent='Something went wrong — please try again';btn.disabled=false;}
+      const data=Object.fromEntries(new FormData(form).entries());
+      const r=await fetch(form.action,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(data)
+      });
+      const j=await r.json().catch(()=>({}));
+      const ok=r.ok&&(j.success===true||j.success==='true'||(!('success' in j)&&r.ok));
+      if(ok){form.style.display='none';fOk.style.display='block';}
+      else{
+        const msg=(j&&j.message)||'Something went wrong — please try again';
+        if(/activat/i.test(msg)){
+          fErr.textContent='Check ks.yourstylephoto@gmail.com and click the FormSubmit activation link, then try again.';
+          fErr.style.display='block';
+          btn.textContent='Send Enquiry →';
+        }else{
+          btn.textContent='Something went wrong — please try again';
+        }
+        btn.disabled=false;
+      }
     }catch{btn.textContent='Network error — please try again';btn.disabled=false;}
   });
 </script>
